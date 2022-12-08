@@ -1,0 +1,45 @@
+trigger:
+- main
+
+schedules:
+  - cron: 0 0 0 ? * MON *
+    branches:
+      include:
+        - main
+    displayName: Every Monday at 0:00 am UTC
+    always: true
+
+variables:
+  - name: image_publisher
+    value: "MicrosoftWindowsDesktop"
+  - name: image_offer
+    value: "office-365"
+  - name: image_sku
+    value: "win11-21h2-avd-m365"
+  - name: image_latest_version
+    
+stages:
+  - stage: Prepare
+    jobs:
+      - job: get_latest_windows_version
+        displayName: Get latest windows version using azure cli
+        steps:
+          - task: AzureCLI@2
+            inputs:
+              azureSubscription: 'Visual Studio Enterprise: BizSpark(e1412e0d-6593-4f7c-839d-0f264e2e6772)'
+              scriptType: 'bash'
+              scriptLocation: 'inlineScript'
+              inlineScript: |
+                latest_version=$(
+                  az vm image show \
+                    --urn "${IMAGE_PUBLISHER}:${IMAGE_OFFER}:${IMAGE_SKU}:latest" \
+                    --query name \
+                    --out tsv
+                )
+                
+                echo "Publisher: ${image_publisher}"
+                echo "Offer:     ${image_offer}"
+                echo "SKU:       ${image_sku}"
+                echo "Version:   ${latest_version}"
+
+    
