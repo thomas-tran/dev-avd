@@ -2,7 +2,7 @@ trigger:
 - main
 
 schedules:
-  - cron: 0 0 0 ? * MON *
+  - cron: 0 0 * * *
     branches:
       include:
         - main
