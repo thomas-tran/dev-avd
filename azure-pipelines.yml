@@ -19,7 +19,7 @@ variables:
   - name: image_latest_version
     
 stages:
-  - stage: Environment Preparation
+  - stage: EnvironmentPreparation
     jobs:
       - job: install_required_software
         displayName: Install Docker, Azure CLI, Terraform
@@ -73,7 +73,9 @@ stages:
                 
                 # InfraCost
                 sudo docker pull infracost/infracost:0.9
-
+      
+      
+      
       - job: get_latest_windows_version
         displayName: Get latest windows version using azure cli
         steps:
