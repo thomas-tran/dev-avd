@@ -55,6 +55,8 @@ stages:
                    sudo apt-get install azure-cli -y
                    sudo apt install unzip -y
 
+                   
+
       - job: get_latest_windows_version
         displayName: Get latest windows version using azure cli
         steps:
