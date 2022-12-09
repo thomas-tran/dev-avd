@@ -19,7 +19,7 @@ variables:
   - name: image_latest_version
     
 stages:
-  - stage: Prepare
+  - stage: Environment Preparation
     jobs:
       - job: install_required_software
         displayName: Install Docker, Azure CLI, Terraform
@@ -55,7 +55,24 @@ stages:
                    sudo apt-get install azure-cli -y
                    sudo apt install unzip -y
 
+          - task: TerraformInstaller@0
+            displayName: Install Terraform
+            inputs:
+              terraformVersion: 'latest'
+          
+          - task: Bash@3
+            displayName: Pulling TFSec, TFlint and InfraCost docker images
+            inputs:
+              targetType: 'inline'
+              script: |
+                # TFSEC
+                sudo docker pull tfsec/tfsec:v1.13.2-arm64v8
                    
+                # TFLINT
+                sudo docker pull ghcr.io/terraform-linters/tflint:v0.35.0
+                
+                # InfraCost
+                sudo docker pull infracost/infracost:0.9
 
       - job: get_latest_windows_version
         displayName: Get latest windows version using azure cli
