@@ -37,9 +37,9 @@ stages:
                     --out tsv
                 )
                 
-                echo "Publisher: ${image_publisher}"
-                echo "Offer:     ${image_offer}"
-                echo "SKU:       ${image_sku}"
+                echo "Publisher: ${IMAGE_PUBLISHER}"
+                echo "Offer:     ${IMAGE_OFFER}"
+                echo "SKU:       ${IMAGE_SKU}"
                 echo "Version:   ${latest_version}"
 
     
